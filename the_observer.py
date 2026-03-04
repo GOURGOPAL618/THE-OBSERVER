@@ -1,13 +1,12 @@
 import sys
 import subprocess
-import importlib.util
 
 # ============================================================
-# ULTIMATE PACKAGE INSTALLER - RUNS BEFORE ANY OTHER IMPORTS
+# SIMPLE INSTALLER - NO PERMISSION ISSUES
 # ============================================================
-print("🚀 ULTIMATE PACKAGE INSTALLER ACTIVATED...")
+print("🚀 Installing packages with user permission...")
 
-PACKAGES = [
+packages = [
     'pandas',
     'numpy',
     'plotly',
@@ -21,26 +20,17 @@ PACKAGES = [
     'psutil'
 ]
 
-def install_package(package):
-    """Install a single package"""
+for package in packages:
     try:
         print(f"📦 Installing {package}...")
-        subprocess.check_call([sys.executable, "-m", "pip", "install", package, "--quiet"])
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "--user", package, "--quiet"])
         print(f"✅ {package} installed!")
-        return True
-    except Exception as e:
-        print(f"❌ Failed to install {package}: {e}")
-        return False
+    except:
+        print(f"⚠️ Could not install {package}")
 
-# Install all packages one by one
-for package in PACKAGES:
-    install_package(package)
+print("✅ Installation complete! Importing packages...\n")
 
-print("✅ ALL PACKAGES INSTALLED! Now importing...\n")
-
-# ============================================================
-# NOW IMPORT EVERYTHING AFTER INSTALLATION
-# ============================================================
+# Now import everything
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -49,6 +39,10 @@ import requests
 import time
 import json
 import random
+import plotly.graph_objects as go
+import plotly.express as px
+from plotly.subplots import make_subplots
+from streamlit_option_menu import option_menu
 import folium
 from streamlit_folium import folium_static
 from PIL import Image
@@ -58,13 +52,8 @@ import hashlib
 import pytz
 import psutil
 import platform
-import plotly.graph_objects as go
-import plotly.express as px
-from plotly.subplots import make_subplots
-from streamlit_option_menu import option_menu
 
-print("🚀 ALL IMPORTS SUCCESSFUL! Starting THE OBSERVER...")
-
+print("🚀 All imports successful! Starting THE OBSERVER...")
 
 # ============================================================================
 # PAGE CONFIGURATION
