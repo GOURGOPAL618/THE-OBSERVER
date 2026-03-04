@@ -1,3 +1,46 @@
+import sys
+import subprocess
+import importlib.util
+
+# ============================================================
+# ULTIMATE PACKAGE INSTALLER - RUNS BEFORE ANY OTHER IMPORTS
+# ============================================================
+print("🚀 ULTIMATE PACKAGE INSTALLER ACTIVATED...")
+
+PACKAGES = [
+    'pandas',
+    'numpy',
+    'plotly',
+    'plotly-express',
+    'requests',
+    'streamlit-option-menu',
+    'folium',
+    'streamlit-folium',
+    'pillow',
+    'pytz',
+    'psutil'
+]
+
+def install_package(package):
+    """Install a single package"""
+    try:
+        print(f"📦 Installing {package}...")
+        subprocess.check_call([sys.executable, "-m", "pip", "install", package, "--quiet"])
+        print(f"✅ {package} installed!")
+        return True
+    except Exception as e:
+        print(f"❌ Failed to install {package}: {e}")
+        return False
+
+# Install all packages one by one
+for package in PACKAGES:
+    install_package(package)
+
+print("✅ ALL PACKAGES INSTALLED! Now importing...\n")
+
+# ============================================================
+# NOW IMPORT EVERYTHING AFTER INSTALLATION
+# ============================================================
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -15,64 +58,14 @@ import hashlib
 import pytz
 import psutil
 import platform
-import sys
-import subprocess
-import pkg_resources
-from pkg_resources import DistributionNotFound, VersionConflict
-
-# ============================================================
-# INSTALL ALL REQUIRED PACKAGES FIRST
-# ============================================================
-print("🚀 Checking required packages...")
-
-REQUIRED_PACKAGES = [
-    'pandas',
-    'numpy',
-    'plotly',
-    'plotly-express',
-    'requests',
-    'streamlit-option-menu',  # Added this
-    'folium',
-    'streamlit-folium',
-    'Pillow',
-    'pytz',
-    'psutil'
-]
-
-def install_package(package):
-    """Install a package using pip"""
-    try:
-        subprocess.check_call([sys.executable, "-m", "pip", "install", package, "--quiet"])
-        return True
-    except Exception as e:
-        print(f"⚠️ Error installing {package}: {e}")
-        return False
-
-# Install all required packages
-for package in REQUIRED_PACKAGES:
-    package_name = package.replace('streamlit-option-menu', 'streamlit_option_menu')
-    try:
-        pkg_resources.get_distribution(package)
-        print(f"✅ {package} already installed")
-    except (DistributionNotFound, VersionConflict):
-        print(f"📦 Installing {package}...")
-        if install_package(package):
-            print(f"✅ {package} installed successfully")
-        else:
-            print(f"❌ Failed to install {package}")
-
-# ============================================================
-# NOW IMPORT ALL PACKAGES AFTER INSTALLATION
-# ============================================================
-print("🚀 Loading plotly...")
 import plotly.graph_objects as go
 import plotly.express as px
 from plotly.subplots import make_subplots
-print("✅ Plotly loaded successfully!")
-
-print("🚀 Loading streamlit_option_menu...")
 from streamlit_option_menu import option_menu
-print("✅ streamlit_option_menu loaded successfully!")
+
+print("🚀 ALL IMPORTS SUCCESSFUL! Starting THE OBSERVER...")
+
+
 # ============================================================================
 # PAGE CONFIGURATION
 # ============================================================================
