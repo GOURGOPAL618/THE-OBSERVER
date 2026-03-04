@@ -1,10 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import plotly.graph_objects as go
-import plotly.express as px
-from plotly.subplots import make_subplots
-import datetime as dt  # Single datetime import
+import datetime as dt
 import requests
 import time
 import json
@@ -20,19 +17,20 @@ import pytz
 import psutil
 import platform
 import sys
-
-# ============================================================
-# FORCE PACKAGE INSTALLATION ON STREAMLIT CLOUD
-# ============================================================
 import subprocess
 import pkg_resources
 from pkg_resources import DistributionNotFound, VersionConflict
 
-# List of packages that must be installed
+# ============================================================
+# INSTALL ALL REQUIRED PACKAGES FIRST
+# ============================================================
+print("🚀 Checking required packages...")
+
 REQUIRED_PACKAGES = [
     'pandas',
     'numpy',
     'plotly',
+    'plotly-express',
     'requests',
     'streamlit-option-menu',
     'folium',
@@ -47,12 +45,12 @@ def install_package(package):
     try:
         subprocess.check_call([sys.executable, "-m", "pip", "install", package, "--quiet"])
         return True
-    except:
+    except Exception as e:
+        print(f"⚠️ Error installing {package}: {e}")
         return False
 
-# Check and install each required package
+# Install all required packages
 for package in REQUIRED_PACKAGES:
-    package_import = package.replace('-', '_').replace('Pillow', 'PIL')
     try:
         pkg_resources.get_distribution(package)
         print(f"✅ {package} already installed")
@@ -63,17 +61,14 @@ for package in REQUIRED_PACKAGES:
         else:
             print(f"❌ Failed to install {package}")
 
-# Special handling for plotly
-try:
-    import plotly
-    print(f"✅ plotly version: {plotly.__version__}")
-except:
-    print("📦 Force installing plotly...")
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "plotly", "--upgrade", "--quiet"])
-    import plotly
-    print(f"✅ plotly installed: {plotly.__version__}")
-
-print("🚀 All package checks complete! Starting THE OBSERVER...")
+# ============================================================
+# NOW IMPORT PLOTLY AFTER INSTALLATION
+# ============================================================
+print("🚀 Loading plotly...")
+import plotly.graph_objects as go
+import plotly.express as px
+from plotly.subplots import make_subplots
+print("✅ Plotly loaded successfully!")
 
 # ============================================================================
 # PAGE CONFIGURATION
