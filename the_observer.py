@@ -21,6 +21,60 @@ import psutil
 import platform
 import sys
 
+# ============================================================
+# FORCE PACKAGE INSTALLATION ON STREAMLIT CLOUD
+# ============================================================
+import subprocess
+import pkg_resources
+from pkg_resources import DistributionNotFound, VersionConflict
+
+# List of packages that must be installed
+REQUIRED_PACKAGES = [
+    'pandas',
+    'numpy',
+    'plotly',
+    'requests',
+    'streamlit-option-menu',
+    'folium',
+    'streamlit-folium',
+    'Pillow',
+    'pytz',
+    'psutil'
+]
+
+def install_package(package):
+    """Install a package using pip"""
+    try:
+        subprocess.check_call([sys.executable, "-m", "pip", "install", package, "--quiet"])
+        return True
+    except:
+        return False
+
+# Check and install each required package
+for package in REQUIRED_PACKAGES:
+    package_import = package.replace('-', '_').replace('Pillow', 'PIL')
+    try:
+        pkg_resources.get_distribution(package)
+        print(f"✅ {package} already installed")
+    except (DistributionNotFound, VersionConflict):
+        print(f"📦 Installing {package}...")
+        if install_package(package):
+            print(f"✅ {package} installed successfully")
+        else:
+            print(f"❌ Failed to install {package}")
+
+# Special handling for plotly
+try:
+    import plotly
+    print(f"✅ plotly version: {plotly.__version__}")
+except:
+    print("📦 Force installing plotly...")
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "plotly", "--upgrade", "--quiet"])
+    import plotly
+    print(f"✅ plotly installed: {plotly.__version__}")
+
+print("🚀 All package checks complete! Starting THE OBSERVER...")
+
 # ============================================================================
 # PAGE CONFIGURATION
 # ============================================================================
