@@ -2,12 +2,13 @@ streamlit
 pandas
 numpy
 plotly
-plotly-express
+scikit-learn
 requests
-streamlit-option-menu
+pillow
+matplotlib
+seaborn
 folium
 streamlit-folium
-pillow
-pytz
 psutil
+
 
