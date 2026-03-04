@@ -10,3 +10,4 @@ streamlit-folium
 pillow
 pytz
 psutil
+
