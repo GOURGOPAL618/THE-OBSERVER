@@ -1,14 +1,1 @@
 streamlit
-pandas
-numpy
-plotly
-scikit-learn
-requests
-pillow
-matplotlib
-seaborn
-folium
-streamlit-folium
-psutil
-
-
