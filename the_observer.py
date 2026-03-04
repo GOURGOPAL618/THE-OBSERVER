@@ -1,35 +1,3 @@
-import sys
-import subprocess
-
-# ============================================================
-# SIMPLE INSTALLER - NO PERMISSION ISSUES
-# ============================================================
-print("🚀 Installing packages with user permission...")
-
-packages = [
-    'pandas',
-    'numpy',
-    'plotly',
-    'plotly-express',
-    'requests',
-    'streamlit-option-menu',
-    'folium',
-    'streamlit-folium',
-    'pillow',
-    'pytz',
-    'psutil'
-]
-
-for package in packages:
-    try:
-        print(f"📦 Installing {package}...")
-        subprocess.check_call([sys.executable, "-m", "pip", "install", "--user", package, "--quiet"])
-        print(f"✅ {package} installed!")
-    except:
-        print(f"⚠️ Could not install {package}")
-
-print("✅ Installation complete! Importing packages...\n")
-
 # Now import everything
 import streamlit as st
 import pandas as pd
