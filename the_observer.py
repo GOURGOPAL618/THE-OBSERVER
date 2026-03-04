@@ -6,7 +6,6 @@ import requests
 import time
 import json
 import random
-from streamlit_option_menu import option_menu
 import folium
 from streamlit_folium import folium_static
 from PIL import Image
@@ -32,7 +31,7 @@ REQUIRED_PACKAGES = [
     'plotly',
     'plotly-express',
     'requests',
-    'streamlit-option-menu',
+    'streamlit-option-menu',  # Added this
     'folium',
     'streamlit-folium',
     'Pillow',
@@ -51,6 +50,7 @@ def install_package(package):
 
 # Install all required packages
 for package in REQUIRED_PACKAGES:
+    package_name = package.replace('streamlit-option-menu', 'streamlit_option_menu')
     try:
         pkg_resources.get_distribution(package)
         print(f"✅ {package} already installed")
@@ -62,7 +62,7 @@ for package in REQUIRED_PACKAGES:
             print(f"❌ Failed to install {package}")
 
 # ============================================================
-# NOW IMPORT PLOTLY AFTER INSTALLATION
+# NOW IMPORT ALL PACKAGES AFTER INSTALLATION
 # ============================================================
 print("🚀 Loading plotly...")
 import plotly.graph_objects as go
@@ -70,6 +70,9 @@ import plotly.express as px
 from plotly.subplots import make_subplots
 print("✅ Plotly loaded successfully!")
 
+print("🚀 Loading streamlit_option_menu...")
+from streamlit_option_menu import option_menu
+print("✅ streamlit_option_menu loaded successfully!")
 # ============================================================================
 # PAGE CONFIGURATION
 # ============================================================================
