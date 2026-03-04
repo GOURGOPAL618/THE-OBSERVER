@@ -1,0 +1,13 @@
+plotly
+pandas
+numpy
+streamlit
+requests
+streamlit-option-menu
+folium
+streamlit-folium
+pillow
+pytz
+psutil
+
+
